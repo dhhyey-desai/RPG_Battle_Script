@@ -1,15 +1,5 @@
 import random
 
-import pymongo
-
-from pymongo import MongoClient
-
-cin = MongoClient()
-
-db = cin.my_game_database
-
-users = db.users
-
 player_hp = 500
 
 enemy_hp = 1000
@@ -20,13 +10,24 @@ coins = 100
 
 process = True
 
-Spells = ('1.Curer', '2.Small Shield', '3.Big Shield', '4.Grenade', '5.C4', '6.Bomb')
 
 while process == True:
+    if enemy_hp < 0:
+        enemy_hp = 0
+
+        print("Well Done!! You defeated the enemy. In " + str(time) + " attacks.")
+
+        exit()
 
     option = input("What do you want to do?\n1.Attack\n2.Spell\n")
 
     if option == str(1):
+        if enemy_hp < 0:
+            enemy_hp = 0
+
+            print("Well Done!! You defeated the enemy. In " + str(time) + " attacks.")
+
+            exit()
         time = time + 1
 
         enemy_hp = enemy_hp + random.randint(1, 30)
@@ -63,11 +64,7 @@ while process == True:
 
             print("Enemy HP now equals to " + str(attacks))
 
-            print("Well Done!! You defeated the enemy. In " + str(time) + " goes")
-
-            user1 = ({"Turns": time})
-
-            user_id = users.insert(user1).inserted_id
+            print("Well Done!! You defeated the enemy. In " + str(time) + " attacks.")
 
             exit()
 
@@ -78,6 +75,13 @@ while process == True:
         enemy_hp = attacks
 
     if option == str(2):
+        enemy_hp = enemy_hp + random.randint(1, 30)
+        if enemy_hp < 0:
+            enemy_hp = 0
+
+            print("Well Done!! You defeated the enemy. In " + str(time) + " attacks.")
+
+            exit()
         time = time + 1
 
         choice = input("What spell do you want to use?\n1.Curer COST: 15\n2.Small Shield COST: 10\n3.Big "
@@ -87,13 +91,6 @@ while process == True:
         if choice == str(1):
 
             player_hp = player_hp + 100
-
-            if player_hp < 0:
-                player_hp = 0
-
-                print("The enemy defeated you!!")
-
-                exit()
 
             print("Players HP now is " + str(player_hp))
 
@@ -105,13 +102,6 @@ while process == True:
 
             player_hp = player_hp + 50
 
-            if player_hp < 0:
-                player_hp = 0
-
-                print("The enemy defeated you!!")
-
-                exit()
-
             print("Players HP now is " + str(player_hp))
 
             coins = coins - 10
@@ -121,13 +111,6 @@ while process == True:
         if choice == str(3):
 
             player_hp = player_hp + 200
-
-            if player_hp < 0:
-                player_hp = 0
-
-                print("The enemy defeated you!!")
-
-                exit()
 
             print("Players HP now is " + str(player_hp))
 
@@ -142,8 +125,7 @@ while process == True:
             if enemy_hp < 0:
                 enemy_hp = 0
 
-                print("The enemy defeated you!!")
-
+                print("Well Done!! You defeated the enemy. In " + str(time) + " attacks.")
                 exit()
 
             print("Enemies HP now is " + str(enemy_hp))
@@ -159,7 +141,7 @@ while process == True:
             if enemy_hp < 0:
                 enemy_hp = 0
 
-                print("Well Done!! You've defeated your enemy")
+                print("Well Done!! You defeated the enemy. In " + str(time) + " attacks.")
 
                 exit()
 
@@ -176,7 +158,7 @@ while process == True:
             if enemy_hp < 0:
                 enemy_hp = 0
 
-                print("Well Done!! You've defeated your enemy")
+                print("Well Done!! You defeated the enemy. In " + str(time) + " attacks.")
 
                 exit()
 
